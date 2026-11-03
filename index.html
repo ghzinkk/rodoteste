@@ -1,237 +1,176 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="7PUZ Tweaks — otimização profissional para Windows e PC. Escolha seu plano e melhore desempenho, estabilidade e responsividade.">
-  <meta name="theme-color" content="#050505">
-  <title>7PUZ Tweaks — Performance além do limite</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <style>
-    :root{--bg:#050505;--panel:#0d0b10;--panel2:#121017;--text:#f7f4fa;--muted:#a49baa;--pink:#ff2e93;--purple:#9b5cff;--red:#ff3c58;--line:rgba(255,255,255,.09);--glow:0 0 35px rgba(255,46,147,.17);--radius:20px}
-    *{box-sizing:border-box;margin:0;padding:0}
-    html{scroll-behavior:smooth;scroll-padding-top:90px}
-    body{font-family:Inter,system-ui,sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;line-height:1.6}
-    body:before{content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;background:radial-gradient(ellipse at 15% 8%,rgba(155,92,255,.13),transparent 35%),radial-gradient(ellipse at 85% 30%,rgba(255,46,147,.10),transparent 34%),radial-gradient(ellipse at 50% 100%,rgba(255,60,88,.07),transparent 40%)}
-    body:after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.12;background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:48px 48px;mask-image:linear-gradient(to bottom,black,transparent 85%)}
-    a{color:inherit;text-decoration:none}button{font:inherit;cursor:pointer}button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offset:4px}
-    .container{width:min(1160px,calc(100% - 40px));margin:auto}
-    .topbar{position:sticky;top:0;z-index:30;background:rgba(5,5,5,.82);backdrop-filter:blur(18px);border-bottom:1px solid var(--line)}
-    .nav{height:76px;display:flex;align-items:center;justify-content:space-between;gap:24px}
-    .brand{font-weight:900;letter-spacing:-1.5px;font-size:23px}.brand span{color:var(--pink);text-shadow:0 0 18px rgba(255,46,147,.6)}
-    .navlinks{display:flex;align-items:center;gap:25px;color:#c6bdca;font-size:13px;font-weight:600}.navlinks a:hover{color:white}
-    .nav-actions{display:flex;align-items:center;gap:10px}
-    .cart-button,.menu-button{border:1px solid var(--line);background:#111015;color:white;border-radius:12px;padding:10px 14px;font-weight:700;font-size:13px}
-    .cart-count{display:inline-grid;place-items:center;background:var(--pink);color:white;border-radius:50%;width:19px;height:19px;font-size:11px;margin-left:5px}
-    .menu-button{display:none}
-    .hero{min-height:650px;display:grid;align-items:center;padding:85px 0 95px;position:relative}
-    .hero-grid{display:grid;grid-template-columns:1.12fr .88fr;align-items:center;gap:55px}
-    .eyebrow{display:inline-flex;align-items:center;gap:9px;padding:8px 13px;border:1px solid rgba(255,46,147,.25);border-radius:999px;background:rgba(255,46,147,.07);color:#ff8bc1;font-size:11px;font-weight:800;letter-spacing:1.3px;text-transform:uppercase}
-    .pulse{width:7px;height:7px;border-radius:50%;background:#ff4b9d;box-shadow:0 0 12px #ff4b9d}
-    h1{font-size:clamp(43px,6vw,76px);line-height:1.02;letter-spacing:-4px;margin:23px 0 22px;font-weight:900}
-    .gradient{background:linear-gradient(100deg,#ff4c9e 5%,#b16aff 55%,#ff5868);-webkit-background-clip:text;background-clip:text;color:transparent}
-    .hero p{max-width:590px;color:#b8afbd;font-size:16px;line-height:1.85}
-    .hero-actions{display:flex;gap:13px;flex-wrap:wrap;margin-top:32px}
-    .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:14px 21px;border-radius:13px;border:1px solid transparent;font-size:13px;font-weight:800;transition:.22s}
-    .btn-primary{background:linear-gradient(110deg,#ff2e93,#a64cff);color:white;box-shadow:0 8px 30px rgba(255,46,147,.22)}
-    .btn-primary:hover{transform:translateY(-3px);box-shadow:0 12px 35px rgba(255,46,147,.35)}
-    .btn-secondary{background:rgba(255,255,255,.035);border-color:var(--line);color:#eee}
-    .btn-secondary:hover{border-color:rgba(255,46,147,.5);background:rgba(255,46,147,.07)}
-    .hero-stats{display:flex;gap:30px;margin-top:43px;flex-wrap:wrap}.stat strong{display:block;font-size:21px;font-weight:900}.stat span{font-size:11px;color:#928896}
-    .hero-visual{position:relative;min-height:390px;display:grid;place-items:center}
-    .orb{position:absolute;width:310px;height:310px;border-radius:50%;background:radial-gradient(circle at 35% 30%,rgba(255,91,170,.28),rgba(155,92,255,.12) 42%,transparent 70%);filter:blur(8px)}
-    .pc-card{width:min(100%,390px);position:relative;padding:27px;border:1px solid rgba(255,255,255,.12);border-radius:25px;background:linear-gradient(145deg,rgba(25,20,31,.95),rgba(10,9,13,.95));box-shadow:0 25px 90px rgba(0,0,0,.55),0 0 55px rgba(155,92,255,.13);transform:rotate(3deg)}
-    .pc-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:26px}.pc-dots{display:flex;gap:5px}.pc-dots i{width:7px;height:7px;border-radius:50%;background:#ff4b83}.pc-dots i:nth-child(2){background:#ffbf4b}.pc-dots i:nth-child(3){background:#69d99a}
-    .pc-label{font-size:10px;color:#9e93a5;letter-spacing:1.5px;font-weight:800}
-    .speed{font-size:52px;font-weight:900;letter-spacing:-3px}.speed small{font-size:13px;letter-spacing:0;color:#a99eaf}
-    .meter{height:8px;border-radius:20px;background:#28222e;overflow:hidden;margin:9px 0 25px}.meter span{display:block;width:87%;height:100%;background:linear-gradient(90deg,var(--pink),var(--purple));border-radius:20px;box-shadow:0 0 15px var(--pink)}
-    .pc-row{display:flex;justify-content:space-between;padding:12px 0;border-top:1px solid var(--line);font-size:12px}.pc-row span{color:#9e94a5}.pc-row b{color:#eee}
-    .floating-tag{position:absolute;padding:12px 15px;border:1px solid rgba(255,255,255,.12);border-radius:13px;background:#15111b;box-shadow:var(--glow);font-size:11px;font-weight:800}.tag-one{top:35px;right:-3px}.tag-two{bottom:35px;left:-10px}
-    section{padding:85px 0}.section-head{text-align:center;max-width:680px;margin:0 auto 43px}.kicker{color:#ff6cad;text-transform:uppercase;letter-spacing:2px;font-size:10px;font-weight:900}.section-head h2{font-size:clamp(30px,4vw,45px);letter-spacing:-1.8px;margin:10px 0 12px}.section-head p{color:var(--muted);font-size:14px}
-    .benefits{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-    .feature,.step,.review,.faq-item{border:1px solid var(--line);background:linear-gradient(145deg,rgba(20,17,25,.9),rgba(10,9,12,.88));border-radius:var(--radius)}
-    .feature{padding:25px;transition:.25s}.feature:hover{transform:translateY(-5px);border-color:rgba(255,46,147,.35);box-shadow:var(--glow)}
-    .feature-icon{width:43px;height:43px;display:grid;place-items:center;border-radius:13px;background:rgba(255,46,147,.1);color:#ff65aa;font-size:20px;margin-bottom:17px}
-    .feature h3{font-size:16px;margin-bottom:8px}.feature p{font-size:12px;color:var(--muted);line-height:1.8}
-    .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:17px}.step{padding:25px}.step-num{font-size:12px;color:#ff68ac;font-weight:900;letter-spacing:1px}.step h3{font-size:16px;margin:12px 0 7px}.step p{font-size:12px;color:var(--muted)}
-    .plans-section{background:linear-gradient(180deg,transparent,rgba(155,92,255,.035),transparent)}
-    .plans{display:grid;grid-template-columns:repeat(3,1fr);gap:17px;align-items:stretch}
-    .plan{position:relative;border:1px solid var(--line);background:linear-gradient(150deg,#15111a,#0b0a0e);border-radius:21px;padding:25px;display:flex;flex-direction:column;transition:.25s}
-    .plan:hover{transform:translateY(-6px);border-color:rgba(255,46,147,.4);box-shadow:0 15px 45px rgba(255,46,147,.09)}
-    .plan.featured{border-color:rgba(255,46,147,.55);box-shadow:0 0 45px rgba(255,46,147,.11)}
-    .popular{position:absolute;right:17px;top:17px;padding:5px 9px;border-radius:20px;background:rgba(255,46,147,.13);color:#ff78b7;font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:.7px}
-    .plan-type{font-size:10px;color:#ff76b4;font-weight:900;letter-spacing:1.5px;text-transform:uppercase}.plan h3{font-size:20px;margin:8px 0 7px}.plan-desc{font-size:12px;color:var(--muted);min-height:40px}
-    .price{font-size:34px;font-weight:900;letter-spacing:-1.5px;margin:20px 0 3px}.price small{font-size:12px;color:#a99eae;font-weight:600;letter-spacing:0}.plan-note{font-size:10px;color:#8f8494}
-    .plan ul{list-style:none;margin:21px 0 24px;display:grid;gap:11px;flex:1}.plan li{font-size:12px;color:#d1c9d5;display:flex;gap:9px}.plan li:before{content:"✓";color:#ff5ca6;font-weight:900}
-    .plan .btn{width:100%;margin-top:7px}.plan .details-btn{border:0;background:transparent;color:#b7aabd;font-size:11px;padding:12px;margin-top:5px}.plan .details-btn:hover{color:#ff78b7}
-    .notice{margin:25px auto 0;max-width:800px;text-align:center;color:#8e8493;font-size:11px;line-height:1.8}
-    .faq-list{max-width:800px;margin:auto;display:grid;gap:10px}.faq-item{overflow:hidden}.faq-question{width:100%;border:0;background:transparent;color:#f4edf7;text-align:left;padding:19px 21px;display:flex;justify-content:space-between;gap:20px;font-weight:700;font-size:13px}.faq-question span:last-child{color:#ff65aa;font-size:18px}.faq-answer{display:none;padding:0 21px 19px;color:#a99eae;font-size:12px;line-height:1.8}.faq-item.open .faq-answer{display:block}
-    .community{padding:45px;border:1px solid rgba(255,46,147,.2);border-radius:25px;background:radial-gradient(ellipse at 80% 20%,rgba(155,92,255,.13),transparent 45%),linear-gradient(130deg,#17101b,#0c0a0f);display:flex;align-items:center;justify-content:space-between;gap:25px}.community h2{font-size:29px;letter-spacing:-1px}.community p{font-size:13px;color:var(--muted);max-width:570px;margin-top:8px}.community-actions{display:flex;gap:10px;flex-wrap:wrap}
-    .footer{border-top:1px solid var(--line);padding:30px 0;color:#8f8595;font-size:11px}.footer-inner{display:flex;justify-content:space-between;gap:20px;align-items:center}.footer strong{color:white}
-    .modal-backdrop{position:fixed;inset:0;z-index:60;background:rgba(0,0,0,.75);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;padding:20px}.modal-backdrop.show{display:flex}
-    .modal{width:min(520px,100%);max-height:85vh;overflow:auto;border:1px solid rgba(255,255,255,.14);border-radius:22px;background:#100d14;padding:27px;box-shadow:0 25px 90px #000}
-    .modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}.modal-head h3{font-size:20px}.close{width:34px;height:34px;border-radius:10px;border:1px solid var(--line);background:#1a1520;color:white;font-size:20px}
-    .modal p{color:#b6acbc;font-size:13px;line-height:1.8}.cart-list{display:grid;gap:10px;margin:20px 0}.cart-item{display:flex;justify-content:space-between;gap:15px;padding:13px;border:1px solid var(--line);border-radius:12px;font-size:12px}.cart-item button{border:0;background:none;color:#ff659f}.cart-total{display:flex;justify-content:space-between;border-top:1px solid var(--line);padding-top:17px;font-weight:900;margin-bottom:15px}.cart-empty{text-align:center;padding:20px;color:#9d92a3;font-size:13px}
-    .toast{position:fixed;z-index:90;bottom:22px;left:50%;transform:translate(-50%,20px);opacity:0;pointer-events:none;padding:12px 17px;border-radius:12px;background:#211525;border:1px solid rgba(255,46,147,.4);color:white;font-size:12px;transition:.25s;box-shadow:var(--glow)}.toast.show{opacity:1;transform:translate(-50%,0)}
-    .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s,transform .6s}.reveal.visible{opacity:1;transform:translateY(0)}
-    @media(max-width:900px){.navlinks{gap:14px}.hero-grid{gap:25px}.plans{grid-template-columns:repeat(2,1fr)}.plan:last-child{grid-column:span 2}.hero{min-height:auto}}
-    @media(max-width:700px){.nav{height:67px}.menu-button{display:block}.navlinks{display:none;position:absolute;top:67px;left:0;right:0;padding:18px 22px 22px;background:#0b090e;border-bottom:1px solid var(--line);flex-direction:column;align-items:flex-start}.navlinks.open{display:flex}.hero{padding:65px 0}.hero-grid{grid-template-columns:1fr}.hero-visual{min-height:330px}.pc-card{max-width:340px}.tag-one{right:0}.tag-two{left:0}h1{letter-spacing:-2.7px}.benefits,.steps{grid-template-columns:1fr}.plans{grid-template-columns:1fr}.plan:last-child{grid-column:auto}section{padding:65px 0}.community{padding:28px;display:block}.community-actions{margin-top:20px}.footer-inner{flex-direction:column;text-align:center}.hero-stats{gap:20px}}
-    @media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Rodotest Tacógrafos Auto Elétrica em Salto SP. Tacógrafos, auto elétrica, manutenção, calibração e serviços para caminhões e vans.">
+<title>Rodotest | Tacógrafos e Auto Elétrica</title>
+<style>
+:root{--blue:#102e6d;--red:#c71935;--yellow:#ffdf00;--light:#f4f6fa;--ink:#202b40}
+*{box-sizing:border-box;margin:0;padding:0;scroll-behavior:smooth}
+body{font-family:Arial,Helvetica,sans-serif;color:var(--ink);line-height:1.6}
+header{position:sticky;top:0;z-index:1000;background:#fff;border-bottom:4px solid var(--red);box-shadow:0 2px 12px #0002}
+.nav{max-width:1200px;margin:auto;padding:13px 5%;display:flex;justify-content:space-between;align-items:center}
+.logo{font-size:27px;line-height:1.05;font-weight:900;color:var(--blue);text-decoration:none}
+.logo span{display:block;color:var(--red);font-size:16px}.logo small{display:block;font-size:10px;letter-spacing:1px}
+nav{display:flex;align-items:center;gap:22px}
+nav a{color:var(--blue);font-weight:800;font-size:13px;text-decoration:none}
+nav a:hover{color:var(--red)}
+.menu-btn{display:none;border:0;background:none;color:var(--blue);font-size:29px;cursor:pointer}
+
+/* Faixa animada: caminhão desenhado em CSS, sem imagens externas */
+.truck-road{height:142px;position:relative;overflow:hidden;background:linear-gradient(180deg,#eaf1fb,#f9fbff);border-bottom:5px solid var(--blue)}
+.road-mark{position:absolute;left:0;right:0;bottom:20px;border-bottom:3px dashed #aab8ce}
+.animated-truck{position:absolute;left:-340px;bottom:20px;width:300px;height:105px;animation:drive-across 11s linear infinite;z-index:2}
+.trailer{position:absolute;left:4px;bottom:25px;width:194px;height:66px;background:#fff;border:3px solid var(--blue);border-radius:5px 3px 3px 5px;box-shadow:inset 0 -8px var(--red);display:flex;align-items:center;justify-content:center;color:var(--blue);font-weight:900;font-size:22px;letter-spacing:.5px}
+.trailer:after{content:"TACÓGRAFOS • AUTO ELÉTRICA";position:absolute;top:8px;left:0;right:0;text-align:center;font-size:8px;color:var(--red);letter-spacing:.6px}
+.cab{position:absolute;left:198px;bottom:25px;width:91px;height:59px;background:var(--red);border:3px solid #991329;border-radius:7px 15px 3px 3px;clip-path:polygon(0 0,65% 0,100% 48%,100% 100%,0 100%)}
+.window{position:absolute;top:7px;right:9px;width:39px;height:23px;background:#bfe7ff;border:2px solid #fff;border-radius:4px;transform:skew(12deg)}
+.bumper{position:absolute;left:278px;bottom:23px;width:19px;height:7px;background:#555;border-radius:2px}
+.wheel{position:absolute;bottom:5px;width:37px;height:37px;border-radius:50%;background:#171717;border:5px solid #737b87;box-shadow:inset 0 0 0 3px #252525;animation:wheel-spin .55s linear infinite}
+.wheel:before,.wheel:after{content:"";position:absolute;background:#dce3ed;left:11px;top:3px;width:4px;height:18px;border-radius:2px}
+.wheel:after{transform:rotate(90deg)}
+.wheel-a{left:35px}.wheel-b{left:224px}
+@keyframes drive-across{from{transform:translateX(0)}to{transform:translateX(calc(100vw + 680px))}}
+@keyframes wheel-spin{to{transform:rotate(360deg)}}
+
+section{scroll-margin-top:82px}
+.hero{position:relative;min-height:510px;display:flex;align-items:center;padding:85px 7%;color:white;background:linear-gradient(100deg,#091b3bf2,#102e6dcc),url('https://images.unsplash.com/photo-1519003722824-194d4455a60f?auto=format&fit=crop&w=1800&q=85') center/cover}
+.hero-content{max-width:760px}
+.tag,.subtitle{font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--red);font-size:13px}
+.hero .tag{color:var(--yellow)}
+h1{font-size:clamp(36px,6vw,60px);line-height:1.12;margin:15px 0}
+.hero p{font-size:18px;max-width:650px;margin-bottom:24px}
+.btn{display:inline-block;padding:13px 22px;border-radius:7px;text-decoration:none;font-weight:800;margin:5px 7px 5px 0}
+.btn-red{background:var(--red);color:white}.btn-white{background:white;color:var(--blue)}
+.container{max-width:1150px;margin:auto;padding:72px 6%}
+.center{text-align:center}
+h2{font-size:clamp(28px,4vw,36px);color:var(--blue);margin:8px 0 18px}
+.intro{max-width:720px;margin:0 auto 35px;color:#647084}
+.about,.services-section,.contact-section{background:var(--light)}
+.about-grid,.location-grid{display:grid;grid-template-columns:1fr 1fr;gap:35px;align-items:center}
+.about-box,.contact-card{background:white;padding:29px;border-radius:12px;border-left:5px solid var(--red);box-shadow:0 5px 20px #102e6d0d}
+.about-box h3,.contact-card h3{color:var(--blue);font-size:22px;margin-bottom:10px}
+.services{display:grid;grid-template-columns:repeat(3,1fr);gap:19px}
+.service{padding:25px;background:white;border-radius:10px;border-bottom:4px solid var(--red);box-shadow:0 5px 22px #102e6d12;transition:transform .2s}
+.service:hover{transform:translateY(-5px)}
+.symbol{font-size:34px}.service h3{color:var(--blue);margin:8px 0}.service p{font-size:14px;color:#687386}
+.highlight{background:var(--blue);color:white;padding:55px 6%;text-align:center;border-top:5px solid var(--yellow)}
+.highlight h2{color:white}.highlight p{max-width:750px;margin:10px auto 20px}
+.contact-card a{color:var(--red);font-weight:bold;text-decoration:none}
+.map{width:100%;height:330px;border:0;border-radius:12px}
+.contact-box{background:var(--blue);color:white;padding:42px;border-radius:15px;text-align:center}
+.contact-box h2{color:white}.contact-box p{margin:10px 0 20px}
+footer{background:#0b1b3b;color:white;text-align:center;padding:30px 15px}
+footer strong{color:var(--yellow)}
+.whatsapp{position:fixed;right:20px;bottom:20px;z-index:1100;background:#20bd62;color:white;text-decoration:none;padding:13px 19px;border-radius:50px;font-weight:bold;box-shadow:0 5px 20px #0003}
+@media(max-width:800px){
+.menu-btn{display:block}
+nav{display:none;position:absolute;top:68px;left:0;width:100%;background:white;flex-direction:column;padding:20px;gap:17px;box-shadow:0 8px 15px #0002}
+nav.open{display:flex}
+.about-grid,.location-grid{grid-template-columns:1fr}
+.services{grid-template-columns:repeat(2,1fr)}
+.hero{min-height:480px}
+}
+@media(max-width:500px){
+.services{grid-template-columns:1fr}
+.truck-road{height:125px}
+.animated-truck{transform-origin:left bottom;scale:.83;bottom:15px}
+.contact-box{padding:28px 16px}
+.whatsapp{right:12px;bottom:12px}
+}
+@media(prefers-reduced-motion:reduce){
+html{scroll-behavior:auto}
+.animated-truck,.wheel{animation:none}
+.animated-truck{left:calc(50% - 150px)}
+}
+</style>
 </head>
 <body>
-<header class="topbar">
-  <div class="container nav">
-    <a class="brand" href="#inicio">7PUZ <span>TWEAKS</span></a>
-    <nav class="navlinks" id="navlinks">
-      <a href="#beneficios">Benefícios</a><a href="#como-funciona">Como funciona</a><a href="#planos">Planos</a><a href="#faq">FAQ</a><a href="#ajuda">Ajuda</a><a href="https://discord.com/channels/1470985343875551357/1471154856050954433" target="_blank" rel="noopener">Avaliações</a>
-    </nav>
-    <div class="nav-actions">
-      <button class="cart-button" id="open-cart" aria-label="Abrir carrinho">Carrinho <span class="cart-count" id="cart-count">0</span></button>
-      <button class="menu-button" id="menu-button" aria-label="Abrir menu">☰</button>
-    </div>
-  </div>
+<header>
+ <div class="nav">
+  <a href="#inicio" class="logo">RODOTEST<span>TACÓGRAFOS</span><small>AUTO ELÉTRICA</small></a>
+  <button class="menu-btn" onclick="toggleMenu()" aria-label="Abrir menu" aria-expanded="false">☰</button>
+  <nav id="nav">
+   <a href="#inicio">INÍCIO</a><a href="#sobre">QUEM SOMOS</a><a href="#servicos">SERVIÇOS</a><a href="#endereco">ENDEREÇO</a><a href="#contato">CONTATO</a>
+  </nav>
+ </div>
 </header>
 
-<main>
-  <section class="hero" id="inicio">
-    <div class="container hero-grid">
-      <div>
-        <div class="eyebrow"><i class="pulse"></i> Otimização profissional para PC</div>
-        <h1>Seu PC no<br><span class="gradient">próximo nível.</span></h1>
-        <p>Mais desempenho, estabilidade e responsividade para aproveitar melhor seu computador. Escolha o pacote ideal e deixe a parte técnica com a 7PUZ Tweaks.</p>
-        <div class="hero-actions"><a class="btn btn-primary" href="#planos">Ver planos <span>↗</span></a><a class="btn btn-secondary" href="https://discord.gg/Zf8MXZu89J" target="_blank" rel="noopener">Entrar no Discord</a></div>
-        <div class="hero-stats"><div class="stat"><strong>100%</strong><span>Atendimento dedicado</span></div><div class="stat"><strong>PC</strong><span>Windows 10 e 11</span></div><div class="stat"><strong>7PUZ</strong><span>Foco em performance</span></div></div>
-      </div>
-      <div class="hero-visual" aria-label="Painel ilustrativo de desempenho">
-        <div class="orb"></div><div class="pc-card">
-          <div class="pc-top"><span class="pc-label">7PUZ PERFORMANCE PANEL</span><span class="pc-dots"><i></i><i></i><i></i></span></div>
-          <div class="pc-label">SYSTEM RESPONSIVENESS</div><div class="speed">MAX <small>PERFORMANCE</small></div>
-          <div class="meter"><span></span></div>
-          <div class="pc-row"><span>Windows</span><b>Optimized</b></div><div class="pc-row"><span>System stability</span><b>Enhanced</b></div><div class="pc-row"><span>Background tasks</span><b>Reviewed</b></div>
-        </div>
-        <div class="floating-tag tag-one">✦ PERFORMANCE</div><div class="floating-tag tag-two">⚡ WINDOWS TWEAKS</div>
-      </div>
-    </div>
-  </section>
+<div class="truck-road" aria-label="Caminhão animado da Rodotest">
+ <div class="road-mark"></div>
+ <div class="animated-truck">
+  <div class="trailer">RODOTEST</div>
+  <div class="cab"><div class="window"></div></div>
+  <div class="bumper"></div>
+  <div class="wheel wheel-a"></div><div class="wheel wheel-b"></div>
+ </div>
+</div>
 
-  <section id="beneficios">
-    <div class="container">
-      <div class="section-head reveal"><div class="kicker">Por que escolher a 7PUZ?</div><h2>Otimização com foco no que importa.</h2><p>Configurações pensadas para deixar o sistema mais leve e responsivo, respeitando as características do seu computador.</p></div>
-      <div class="benefits">
-        <article class="feature reveal"><div class="feature-icon">⚡</div><h3>Mais responsividade</h3><p>Revisão de configurações do Windows para uma experiência mais fluida no uso diário e durante os jogos.</p></article>
-        <article class="feature reveal"><div class="feature-icon">◈</div><h3>Sistema mais enxuto</h3><p>Ajustes em inicialização, tarefas e recursos desnecessários, conforme a compatibilidade do equipamento.</p></article>
-        <article class="feature reveal"><div class="feature-icon">⌁</div><h3>Configuração personalizada</h3><p>Otimizações consideradas de acordo com o Windows e as características do seu PC.</p></article>
-        <article class="feature reveal"><div class="feature-icon">🛡</div><h3>Estabilidade em primeiro lugar</h3><p>O objetivo é equilibrar desempenho e estabilidade, evitando promessas irreais ou ajustes sem necessidade.</p></article>
-        <article class="feature reveal"><div class="feature-icon">◉</div><h3>Suporte pelo Discord</h3><p>Entre na comunidade para tirar dúvidas, acompanhar orientações e solicitar atendimento.</p></article>
-        <article class="feature reveal"><div class="feature-icon">↗</div><h3>Atendimento direto</h3><p>Escolha seu pacote e siga as instruções para combinar o atendimento e iniciar o serviço.</p></article>
-      </div>
-    </div>
-  </section>
+<section class="hero" id="inicio">
+ <div class="hero-content">
+  <div class="tag">RODOTEST • SALTO – SP</div>
+  <h1>Precisão, confiança e qualidade para sua estrada.</h1>
+  <p>Especialistas em tacógrafos e auto elétrica. Soluções para caminhões e vans com profissionalismo e dedicação.</p>
+  <a class="btn btn-red" href="https://wa.me/5511942605501" target="_blank" rel="noopener">FALE PELO WHATSAPP</a>
+  <a class="btn btn-white" href="#servicos">CONHEÇA OS SERVIÇOS</a>
+ </div>
+</section>
 
-  <section id="como-funciona">
-    <div class="container">
-      <div class="section-head reveal"><div class="kicker">Simples e direto</div><h2>Como funciona?</h2><p>Do pedido ao atendimento, tudo de forma simples.</p></div>
-      <div class="steps">
-        <article class="step reveal"><div class="step-num">01 / ESCOLHA</div><h3>Selecione seu plano</h3><p>Compare os pacotes disponíveis e escolha a otimização que faz sentido para você.</p></article>
-        <article class="step reveal"><div class="step-num">02 / PAGAMENTO</div><h3>Finalize pelo Mercado Pago</h3><p>Use o link de pagamento específico do plano escolhido. A confirmação segue as regras da plataforma.</p></article>
-        <article class="step reveal"><div class="step-num">03 / ATENDIMENTO</div><h3>Entre em contato</h3><p>Após pagar, acesse o Discord e abra um atendimento para combinar os próximos passos.</p></article>
-      </div>
-    </div>
-  </section>
+<section class="about" id="sobre"><div class="container">
+ <div class="about-grid">
+  <div><div class="subtitle">Conheça a empresa</div><h2>Quem somos</h2>
+   <p>A Rodotest Tacógrafos Auto Elétrica é especializada em serviços voltados ao setor automotivo, com foco em tacógrafos e sistemas elétricos de veículos.</p><br>
+   <p>Nosso objetivo é oferecer atendimento de qualidade, soluções confiáveis e serviços realizados com atenção aos detalhes.</p>
+  </div>
+  <div class="about-box"><h3>Nosso compromisso</h3><p>Trabalhar com responsabilidade, dedicação e precisão, buscando atender às necessidades de cada cliente.</p><br><strong style="color:#c71935">RODOTEST — Sua confiança é nossa prioridade.</strong></div>
+ </div>
+</div></section>
 
-  <section class="plans-section" id="planos">
-    <div class="container">
-      <div class="section-head reveal"><div class="kicker">Escolha seu upgrade</div><h2>Planos <span class="gradient">7PUZ Tweaks</span></h2><p>Encontre o pacote ideal para seu computador e para o resultado que você procura.</p></div>
-      <div class="plans">
-        <article class="plan reveal" data-plan="basic"><div class="plan-type">Entrada</div><h3>Otimização Básica</h3><p class="plan-desc">O essencial para revisar e ajustar seu Windows.</p><div class="price">R$ 21,90</div><div class="plan-note">Pagamento único</div><ul><li>Ajustes básicos do Windows</li><li>Revisão de inicialização</li><li>Configurações essenciais</li><li>Orientação após a otimização</li></ul><button class="btn btn-primary add-cart" data-id="basic">Adicionar ao carrinho</button><button class="details-btn" data-details="basic">Ver detalhes</button></article>
-        <article class="plan featured reveal" data-plan="advanced"><span class="popular">Mais escolhido</span><div class="plan-type">Performance</div><h3>Otimização Avançada</h3><p class="plan-desc">Um conjunto mais amplo de ajustes para seu sistema.</p><div class="price">R$ 79,90</div><div class="plan-note">Pagamento único</div><ul><li>Todos os ajustes básicos</li><li>Otimizações avançadas do Windows</li><li>Revisão de serviços e tarefas</li><li>Ajustes de responsividade</li><li>Suporte pelo Discord</li></ul><button class="btn btn-primary add-cart" data-id="advanced">Adicionar ao carrinho</button><button class="details-btn" data-details="advanced">Ver detalhes</button></article>
-        <article class="plan reveal" data-plan="premium"><div class="plan-type">Completo</div><h3>Otimização Premium</h3><p class="plan-desc">Pacote mais completo para quem quer uma revisão ampla.</p><div class="price">R$ 149,90</div><div class="plan-note">Pagamento único</div><ul><li>Pacote avançado completo</li><li>Revisão aprofundada do sistema</li><li>Ajustes personalizados</li><li>Acompanhamento e suporte</li><li>Condições de suporte por até 3 meses</li></ul><button class="btn btn-primary add-cart" data-id="premium">Adicionar ao carrinho</button><button class="details-btn" data-details="premium">Ver detalhes</button></article>
-        <article class="plan reveal" data-plan="win11"><div class="plan-type">Sistema + performance</div><h3>Windows 11 + Avançada</h3><p class="plan-desc">Instalação/configuração do Windows 11 com otimização avançada.</p><div class="price">R$ 74,90</div><div class="plan-note">Pagamento único</div><ul><li>Windows 11</li><li>Configuração inicial</li><li>Otimização avançada</li><li>Orientações pelo Discord</li></ul><button class="btn btn-primary add-cart" data-id="win11">Adicionar ao carrinho</button><button class="details-btn" data-details="win11">Ver detalhes</button></article>
-        <article class="plan reveal" data-plan="win10"><div class="plan-type">Sistema + performance</div><h3>Windows 10 + Avançada</h3><p class="plan-desc">Instalação/configuração do Windows 10 com otimização avançada.</p><div class="price">R$ 74,90</div><div class="plan-note">Pagamento único</div><ul><li>Windows 10</li><li>Configuração inicial</li><li>Otimização avançada</li><li>Orientações pelo Discord</li></ul><button class="btn btn-primary add-cart" data-id="win10">Adicionar ao carrinho</button><button class="details-btn" data-details="win10">Ver detalhes</button></article>
-      </div>
-      <p class="notice">Os resultados variam conforme hardware, drivers, versão do Windows e condições do equipamento. Nenhum aumento específico de FPS é garantido. Cada plano possui seu próprio link de pagamento; adicionar vários itens ao carrinho não cria uma cobrança única.</p>
-    </div>
-  </section>
+<section class="services-section" id="servicos"><div class="container">
+ <div class="center"><div class="subtitle">O que fazemos</div><h2>Nossos serviços</h2><p class="intro">Conheça as soluções oferecidas pela Rodotest para caminhões, vans e veículos.</p></div>
+ <div class="services">
+  <article class="service"><div class="symbol">⏱️</div><h3>Tacógrafos</h3><p>Serviços especializados em equipamentos de registro e controle de velocidade e tempo.</p></article>
+  <article class="service"><div class="symbol">⚡</div><h3>Auto elétrica</h3><p>Serviços relacionados aos sistemas elétricos automotivos.</p></article>
+  <article class="service"><div class="symbol">🔧</div><h3>Manutenção</h3><p>Cuidados técnicos e manutenção de equipamentos.</p></article>
+  <article class="service"><div class="symbol">🎯</div><h3>Calibração</h3><p>Serviços de calibração de tacógrafos.</p></article>
+  <article class="service"><div class="symbol">⚙️</div><h3>Instalação</h3><p>Instalação de equipamentos e componentes relacionados aos serviços oferecidos.</p></article>
+  <article class="service"><div class="symbol">📋</div><h3>Aferição INMETRO</h3><p>Atendimento relacionado à aferição de tacógrafos conforme os procedimentos aplicáveis.</p></article>
+ </div>
+</div></section>
 
-  <section id="faq">
-    <div class="container">
-      <div class="section-head reveal"><div class="kicker">Dúvidas frequentes</div><h2>Perguntas e respostas.</h2><p>Confira algumas informações antes de escolher seu plano.</p></div>
-      <div class="faq-list">
-        <article class="faq-item"><button class="faq-question"><span>A otimização aumenta quantos FPS?</span><span>+</span></button><div class="faq-answer">Não existe um número fixo. O resultado depende das peças do computador, dos jogos, dos drivers e do estado atual do Windows. A otimização busca melhorar configurações e responsividade, mas não garante uma quantidade específica de FPS.</div></article>
-        <article class="faq-item"><button class="faq-question"><span>Funciona em qualquer computador?</span><span>+</span></button><div class="faq-answer">A compatibilidade depende do hardware e da versão do Windows. Informe as configurações do seu PC no atendimento para verificar qual pacote é adequado.</div></article>
-        <article class="faq-item"><button class="faq-question"><span>Como recebo o atendimento depois do pagamento?</span><span>+</span></button><div class="faq-answer">Após concluir o pagamento pelo link do plano, entre no Discord da 7PUZ Tweaks e abra um ticket no canal de atendimento.</div></article>
-        <article class="faq-item"><button class="faq-question"><span>Posso comprar mais de um plano pelo carrinho?</span><span>+</span></button><div class="faq-answer">Você pode adicionar mais de um plano para comparar e organizar sua seleção. Porém, cada produto tem seu próprio link de pagamento e será necessário pagar separadamente. Confira com o suporte antes de comprar pacotes combinados.</div></article>
-        <article class="faq-item"><button class="faq-question"><span>Preciso fornecer minha senha?</span><span>+</span></button><div class="faq-answer">Não compartilhe senhas pessoais. Combine o procedimento de atendimento diretamente pelo canal oficial e mantenha o controle das suas contas e informações.</div></article>
-        <article class="faq-item"><button class="faq-question"><span>A otimização é permanente?</span><span>+</span></button><div class="faq-answer">Os ajustes permanecem enquanto as configurações do sistema forem mantidas, mas atualizações do Windows, drivers e novos programas podem alterar o comportamento do computador ao longo do tempo.</div></article>
-      </div>
-    </div>
-  </section>
+<section class="highlight"><div class="subtitle" style="color:#ffdf00">Atendimento especializado</div><h2>Seu veículo merece atenção especializada.</h2><p>Entre em contato com a Rodotest e consulte nossos serviços para caminhões e vans.</p><a class="btn btn-red" href="https://wa.me/5511942605501" target="_blank" rel="noopener">SOLICITAR ATENDIMENTO</a></section>
 
-  <section id="ajuda">
-    <div class="container">
-      <div class="community reveal">
-        <div><div class="kicker">Comunidade 7PUZ</div><h2>Precisa de ajuda? Estamos no Discord.</h2><p>Entre na comunidade para solicitar suporte, abrir um ticket ou conferir avaliações e experiências de outros clientes.</p></div>
-        <div class="community-actions"><a class="btn btn-primary" href="https://discord.gg/Zf8MXZu89J" target="_blank" rel="noopener">Entrar no Discord ↗</a><a class="btn btn-secondary" href="https://discord.com/channels/1470985343875551357/1471207657355608187" target="_blank" rel="noopener">Abrir tickets</a><a class="btn btn-secondary" href="https://discord.com/channels/1470985343875551357/1471154856050954433" target="_blank" rel="noopener">Avaliações</a></div>
-      </div>
-    </div>
-  </section>
-</main>
+<section id="endereco"><div class="container">
+ <div class="center"><div class="subtitle">Onde estamos</div><h2>Nosso endereço</h2><p class="intro">Estamos localizados na cidade de Salto, interior de São Paulo.</p></div>
+ <div class="location-grid">
+  <div class="contact-card"><h3>📍 Endereço</h3><p>R. das Nações Unidas, 1152</p><p>Olaria – Salto / SP</p><p>CEP: 13329-350</p><br><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Rua+das+Nacoes+Unidas+1152+Olaria+Salto+SP">COMO CHEGAR →</a></div>
+  <iframe class="map" loading="lazy" title="Mapa da Rodotest em Salto SP" src="https://maps.google.com/maps?q=Rua%20das%20Nacoes%20Unidas%201152%20Olaria%20Salto%20SP&z=15&output=embed"></iframe>
+ </div>
+</div></section>
 
-<footer class="footer"><div class="container footer-inner"><div><strong>7PUZ TWEAKS</strong> — Performance além do limite.</div><div>© <span id="year"></span> 7PUZ Tweaks. Todos os direitos reservados.</div></div></footer>
+<section class="contact-section" id="contato"><div class="container">
+ <div class="contact-box"><div class="subtitle" style="color:#ffdf00">Entre em contato</div><h2>Fale com a Rodotest</h2><p>Precisa de informações ou deseja consultar nossos serviços? Estamos à disposição.</p>
+  <h3 style="font-size:27px">☎ (11) 94260-5501</h3><br>
+  <a class="btn btn-red" href="https://wa.me/5511942605501" target="_blank" rel="noopener">CHAMAR NO WHATSAPP</a>
+  <a class="btn btn-white" href="tel:+5511942605501">LIGAR AGORA</a>
+ </div>
+</div></section>
 
-<div class="modal-backdrop" id="details-modal" role="dialog" aria-modal="true" aria-labelledby="details-title"><div class="modal"><div class="modal-head"><h3 id="details-title">Detalhes do plano</h3><button class="close" data-close="details-modal" aria-label="Fechar">×</button></div><p id="details-text"></p><div style="margin-top:22px"><button class="btn btn-primary" id="details-add">Adicionar ao carrinho</button></div></div></div>
-<div class="modal-backdrop" id="cart-modal" role="dialog" aria-modal="true" aria-labelledby="cart-title"><div class="modal"><div class="modal-head"><h3 id="cart-title">Seu carrinho</h3><button class="close" data-close="cart-modal" aria-label="Fechar">×</button></div><div id="cart-content"></div></div></div>
-<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<footer><h3>RODOTEST <strong>TACÓGRAFOS</strong></h3><p>AUTO ELÉTRICA</p><p>Salto – São Paulo</p><p>(11) 94260-5501</p><br><small>© 2026 Rodotest. Todos os direitos reservados.</small></footer>
+<a class="whatsapp" href="https://wa.me/5511942605501" target="_blank" rel="noopener">☏ WhatsApp</a>
 
 <script>
-(() => {
-  "use strict";
-  const plans = {
-    basic:{name:"Otimização Básica",price:21.90,link:"https://mpago.la/21DMNPW",description:"O pacote básico contempla ajustes essenciais do Windows, revisão da inicialização, configurações fundamentais e orientação após a otimização. É indicado para quem deseja começar com uma revisão do sistema."},
-    advanced:{name:"Otimização Avançada",price:79.90,link:"https://mpago.la/2qNZmXB",description:"O pacote avançado reúne os ajustes básicos e uma revisão mais ampla do Windows, incluindo serviços, tarefas e configurações de responsividade, com suporte pelo Discord."},
-    premium:{name:"Otimização Premium",price:149.90,link:"https://mpago.la/2xN1t1t",description:"O pacote premium inclui uma revisão ampla do sistema, ajustes personalizados e acompanhamento/suporte por até 3 meses, conforme as condições combinadas no atendimento."},
-    win11:{name:"Windows 11 + Otimização Avançada",price:74.90,link:"https://mpago.la/1fofRmH",description:"Pacote de Windows 11 com configuração inicial e otimização avançada. Confirme previamente a compatibilidade do computador e os detalhes de instalação pelo Discord."},
-    win10:{name:"Windows 10 + Otimização Avançada",price:74.90,link:"https://mpago.la/2aALJss",description:"Pacote de Windows 10 com configuração inicial e otimização avançada. Confirme previamente a compatibilidade do computador e os detalhes de instalação pelo Discord."}
-  };
-  let cart = [];
-  let selectedDetail = null;
-  const $ = s => document.querySelector(s);
-  const money = value => value.toLocaleString("pt-BR",{style:"currency",currency:"BRL"});
-  function toast(message){const el=$("#toast");el.textContent=message;el.classList.add("show");clearTimeout(toast.timer);toast.timer=setTimeout(()=>el.classList.remove("show"),2400)}
-  function renderCart(){
-    $("#cart-count").textContent=cart.length;
-    const host=$("#cart-content");
-    if(!cart.length){host.innerHTML='<div class="cart-empty">Seu carrinho está vazio.<br>Escolha um plano para começar.</div>';return}
-    host.innerHTML="";
-    const list=document.createElement("div");list.className="cart-list";
-    cart.forEach((id,index)=>{const p=plans[id];const item=document.createElement("div");item.className="cart-item";const name=document.createElement("strong");name.textContent=p.name;const right=document.createElement("div");right.style.textAlign="right";const price=document.createElement("div");price.textContent=money(p.price);const remove=document.createElement("button");remove.textContent="Remover";remove.addEventListener("click",()=>{cart.splice(index,1);renderCart()});right.append(price,remove);item.append(name,right);list.append(item)});
-    const total=document.createElement("div");total.className="cart-total";const label=document.createElement("span");label.textContent="Total selecionado";const value=document.createElement("span");value.textContent=money(cart.reduce((sum,id)=>sum+plans[id].price,0));total.append(label,value);
-    const note=document.createElement("p");note.style.cssText="font-size:11px;color:#a99eae;margin-bottom:15px";note.textContent="Atenção: cada plano tem seu próprio link de pagamento. Os itens não são cobrados juntos.";
-    const checkout=document.createElement("div");checkout.style.cssText="display:grid;gap:9px";
-    cart.forEach((id,i)=>{const b=document.createElement("a");b.className="btn btn-primary";b.style.width="100%";b.href=plans[id].link;b.target="_blank";b.rel="noopener";b.textContent="Pagar "+plans[id].name+" — "+money(plans[id].price);checkout.append(b)});
-    host.append(list,total,note,checkout);
-  }
-  function addToCart(id){if(!plans[id])return;cart.push(id);renderCart();toast(plans[id].name+" adicionado ao carrinho")}
-  function openModal(id){$("#"+id).classList.add("show");document.body.style.overflow="hidden"}
-  function closeModal(id){$("#"+id).classList.remove("show");if(!document.querySelector(".modal-backdrop.show"))document.body.style.overflow=""}
-  document.querySelectorAll(".add-cart").forEach(b=>b.addEventListener("click",()=>addToCart(b.dataset.id)));
-  document.querySelectorAll(".details-btn").forEach(b=>b.addEventListener("click",()=>{selectedDetail=b.dataset.details;const p=plans[selectedDetail];$("#details-title").textContent=p.name;$("#details-text").textContent=p.description+" Valor: "+money(p.price)+". O pagamento é feito pelo link Mercado Pago deste plano.";openModal("details-modal")}));
-  $("#details-add").addEventListener("click",()=>{if(selectedDetail)addToCart(selectedDetail);closeModal("details-modal")});
-  $("#open-cart").addEventListener("click",()=>{renderCart();openModal("cart-modal")});
-  document.querySelectorAll("[data-close]").forEach(b=>b.addEventListener("click",()=>closeModal(b.dataset.close)));
-  document.querySelectorAll(".modal-backdrop").forEach(back=>back.addEventListener("click",e=>{if(e.target===back)closeModal(back.id)}));
-  document.addEventListener("keydown",e=>{if(e.key==="Escape")document.querySelectorAll(".modal-backdrop.show").forEach(m=>closeModal(m.id))});
-  document.querySelectorAll(".faq-question").forEach(q=>q.addEventListener("click",()=>{const item=q.closest(".faq-item");item.classList.toggle("open");q.querySelector("span:last-child").textContent=item.classList.contains("open")?"−":"+"}));
-  $("#menu-button").addEventListener("click",()=>$("#navlinks").classList.toggle("open"));
-  $("#navlinks").querySelectorAll("a").forEach(a=>a.addEventListener("click",()=>$("#navlinks").classList.remove("open")));
-  $("#year").textContent=new Date().getFullYear();
-  const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add("visible");observer.unobserve(entry.target)}}),{threshold:.12});
-  document.querySelectorAll(".reveal").forEach(el=>observer.observe(el));
-  renderCart();
-})();
+function toggleMenu(){
+ const nav=document.getElementById('nav');
+ const btn=document.querySelector('.menu-btn');
+ nav.classList.toggle('open');
+ btn.setAttribute('aria-expanded',nav.classList.contains('open')?'true':'false');
+}
+document.querySelectorAll('nav a').forEach(link=>link.addEventListener('click',()=>{
+ document.getElementById('nav').classList.remove('open');
+ document.querySelector('.menu-btn').setAttribute('aria-expanded','false');
+}));
 </script>
 </body>
 </html>
